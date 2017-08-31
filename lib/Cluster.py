@@ -44,6 +44,12 @@ class Cluster:
                 return True
         return False
 
+    def is_empty(self):
+        if len(self.shipments) == 0:
+            return True
+        else:
+            return False
+
 
 
 

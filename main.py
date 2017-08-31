@@ -56,7 +56,7 @@ def main():
         working_clusters[shipments_iter] = Cluster.Cluster()
         working_clusters[shipments_iter].append_to_cluster(shipments[shipments_iter])
 
-        for i in range(shipments_iter,len(shipments)):
+        for i in range(shipments_iter + 1, len(shipments)):
             working_clusters[i] = Cluster.Cluster()
             if verbose:
                 print("\n\n[OUTER] at %d shipment - %s" % (i, shipments[i].return_shipment_as_string()))
@@ -79,10 +79,11 @@ def main():
                     if shipments[i].can_follow_shipment(shipments[j]):
                         print("%s can follow %s" % (shipments[i].return_shipment_as_string(), shipments[j].return_shipment_as_string()))
 
-                if shipments[i].can_follow_shipment(shipments[j]) and working_clusters[j].get_cluster_size() > working_clusters[i].get_cluster_size():
+                if working_clusters[j].get_cluster_size() >= working_clusters[i].get_cluster_size():
                     working_clusters[i] = copy.deepcopy(working_clusters[j])
 
-            working_clusters[i].append_to_cluster(shipments[i])
+                if working_clusters[i].can_append_to_cluster(shipments[i]):
+                    working_clusters[i].append_to_cluster(shipments[i])
 
             if verbose:
                 print("Largest cluster for position %d is - %s" % (i,working_clusters[i].return_shipment_ids_as_string()))
