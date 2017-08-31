@@ -80,7 +80,7 @@ def main():
                         print("%s can follow %s" % (shipments[i].return_shipment_as_string(), shipments[j].return_shipment_as_string()))
 
                 if working_clusters[j].get_cluster_size() >= working_clusters[i].get_cluster_size():
-                    working_clusters[i] = copy.deepcopy(working_clusters[j])
+                    working_clusters[i].fast_copy(working_clusters[j])
 
                 if working_clusters[i].can_append_to_cluster(shipments[i]):
                     working_clusters[i].append_to_cluster(shipments[i])

@@ -5,6 +5,12 @@ class Cluster:
 
     def __init__(self):
         self.shipments = []
+        self.size = 0
+
+    '''This function cheats the python built-in copy.copy() and optimizes Cluster copying by more than 10x'''
+    def fast_copy(self, other_cluster):
+        self.shipments = list(other_cluster.shipments)
+        self.size = other_cluster.size
 
     def get_first_shipment(self):
         if self.shipments:
@@ -26,6 +32,7 @@ class Cluster:
 
     def append_to_cluster(self, shipment):
         self.shipments.append(shipment)
+        self.size += 1
         return True
 
     def print_shipment_ids(self):
@@ -36,7 +43,7 @@ class Cluster:
         return " ".join(str(shipment.shipment_id) for shipment in self.shipments)
 
     def get_cluster_size(self):
-        return len(self.shipments)
+        return self.size
 
     def is_shipment_in_cluster(self, shipment):
         for i in self.shipments:
