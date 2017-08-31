@@ -42,10 +42,12 @@ def main():
     final_shipment_set = []
 
     '''Start with Array of empty clusters'''
-    working_clusters = [Cluster.Cluster()] * len(shipments)
+    working_clusters = [None] * len(shipments)
+    working_clusters[0] = Cluster.Cluster()
     working_clusters[0].append_to_cluster(shipments[0])
 
     for i in range(1,len(shipments)):
+        working_clusters[i] = Cluster.Cluster()
         if verbose:
             print("\n\n[OUTER] at %d shipment - %s" % (i, shipments[i].return_shipment_as_string()))
 
@@ -64,8 +66,7 @@ def main():
                 print("[INNER] Inner v/s Outer cluster size %d - %d" % (working_clusters[j].get_cluster_size(), working_clusters[i].get_cluster_size()))
                 if shipments[i].can_follow_shipment(shipments[j]):
                     print("%s can follow %s" % (shipments[i].return_shipment_as_string(), shipments[j].return_shipment_as_string()))
-                    print("Inner working cluster - %s" % working_clusters[j].return_shipment_ids_as_string())
-                    print("Outer working cluster - %s" % working_clusters[i].return_shipment_ids_as_string())
+                    print("Working cluster - %s" % working_clusters[j].return_shipment_ids_as_string())
 
             if shipments[i].can_follow_shipment(shipments[j]) and working_clusters[j].get_cluster_size() >= working_clusters[i].get_cluster_size():
                 working_clusters[i] = copy.deepcopy(working_clusters[j])
@@ -90,6 +91,7 @@ def main():
 
     for cluster in final_cluster_set:
         cluster.print_shipment_ids()
+    print("\n")
 
 main()
 
