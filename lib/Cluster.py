@@ -1,5 +1,5 @@
 from lib import Shipment
-import copy
+
 
 class Cluster:
 
@@ -25,7 +25,7 @@ class Cluster:
             return False
 
     def append_to_cluster(self, shipment):
-        self.shipments.append(copy.deepcopy(shipment))
+        self.shipments.append(shipment)
         return True
 
     def print_shipment_ids(self):

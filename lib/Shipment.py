@@ -56,4 +56,10 @@ class Shipment:
     def __gt__(self,other):
         return self.date > other.date
 
+    def __eq__(self,other):
+        return self.shipment_id == other.shipment_id
+
+    def __ne__(self,other):
+        return self.shipment_id != other.shipment_id
+
 
