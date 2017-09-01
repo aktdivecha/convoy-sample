@@ -40,9 +40,9 @@ class Shipment:
     def print_shipment_id(self):
         print("%d " % self.shipment_id)
 
-    '''A shipment can only follow a predecessor shipment if 
+    '''A shipment can only follow a predecessor shipment if
         1) The shipment source is same as predecessor's destination
-        2) Predecessor shipment does not start on a Friday 
+        2) Predecessor shipment does not start on a Friday
         3) The shipment date immediately follows the predecessor's date'''
     def can_follow_shipment(self,predecessor):
         if self.source == predecessor.dest and predecessor.date is not ShipmentDay.F and (self.date.value - predecessor.date.value == 1):
